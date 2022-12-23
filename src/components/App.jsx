@@ -1,18 +1,34 @@
-import { Fragment } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "../pages/Login";
-import { Header } from "./Header";
+import { Login, ListPayroll, PayrollDetail } from "../pages";
+import { Header } from "./";
+import { BrowserRouter } from "react-router-dom";
 
 export default function App() {
-  return (
-    <Fragment>
-      <Header />
+  const [headerTitle, setHeaderTitle] = useState("");
 
-      <div className="flex justify-center w-full pt-8">
-        <Routes>
-          <Route path="/" element={<Login />} />
-        </Routes>
+  return (
+    <BrowserRouter>
+      <div className="font-custom--roboto-primary w-full h-full">
+        <Header headerTitle={headerTitle} />
+
+        <div className="w-full pt-8">
+          <Routes>
+            <Route
+              path="/"
+              element={<Login setHeaderTitle={setHeaderTitle} />}
+            />
+            <Route
+              path="/list-payroll"
+              element={<ListPayroll setHeaderTitle={setHeaderTitle} />}
+            />
+            <Route
+              path="/payroll-detail"
+              element={<PayrollDetail setHeaderTitle={setHeaderTitle} />}
+            />
+          </Routes>
+        </div>
       </div>
-    </Fragment>
+    </BrowserRouter>
   );
 }
